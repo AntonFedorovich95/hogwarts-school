@@ -3,7 +3,7 @@ package ru.hogwarts.school.model;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 @Entity
 public class Student {
