@@ -1,13 +1,19 @@
 package ru.hogwarts.school.model;
 
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import org.springframework.data.annotation.Id;
 
+@Entity
 public class Student {
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private Integer age;
 
-    public Student(Long id, String name, int age) {
+    public Student(Long id, String name, Integer age) {
         this.id = id;
         this.name = name;
         this.age = age;
