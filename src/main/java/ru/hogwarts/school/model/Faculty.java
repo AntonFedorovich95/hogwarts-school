@@ -1,9 +1,13 @@
 package ru.hogwarts.school.model;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 public class Faculty {
@@ -18,6 +22,10 @@ public class Faculty {
         this.name = name;
         this.color = color;
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
 
     public Long getId() {
         return id;
@@ -43,6 +51,13 @@ public class Faculty {
         this.color = color;
     }
 
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
+    }
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
