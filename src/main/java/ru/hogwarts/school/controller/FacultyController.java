@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.Impl.FacultyServiceImpl;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -49,5 +50,14 @@ public class FacultyController {
     public ResponseEntity deleteFaculty(@PathVariable Long facultyId) {
         facultyService.deleteFaculty(facultyId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping()
+    public ResponseEntity<Collection<Faculty>> getFacultyColorOrName (@RequestParam (required = false) String color,
+                                                                      @RequestParam(required = false) String name){
+        if (color == null && name == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(facultyService.getFacultyColorOrName(color,name));
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.Impl.StudentServiceImpl;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -49,5 +50,14 @@ public class StudentController {
     public ResponseEntity deleteStudent(@PathVariable Long studentId) {
         studentService.deleteStudent(studentId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping()
+    public ResponseEntity <Collection<Student>> getStudentByAgeBetween (@RequestParam Integer minAge,
+                                                                       @RequestParam Integer maxAge) {
+        if (minAge > maxAge){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(studentService.getStudentByAgeBetween(minAge, maxAge));
     }
 }

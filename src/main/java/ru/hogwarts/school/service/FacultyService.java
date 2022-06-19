@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import ru.hogwarts.school.model.Faculty;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface FacultyService {
@@ -14,4 +15,6 @@ public interface FacultyService {
     void deleteFaculty(Long facultyId);
 
     List<Faculty> getFacultyColor(String color);
+
+    Collection<Faculty> getFacultyColorOrName(String color, String name);
 }
