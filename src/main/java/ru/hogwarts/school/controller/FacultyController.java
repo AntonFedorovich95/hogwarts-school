@@ -53,11 +53,7 @@ public class FacultyController {
     }
 
     @GetMapping()
-    public ResponseEntity<Collection<Faculty>> getFacultyColorOrName (@RequestParam (required = false) String color,
-                                                                      @RequestParam(required = false) String name){
-        if (color == null && name == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(facultyService.getFacultyColorOrName(color,name));
+    public ResponseEntity<Collection<Faculty>> getFacultyColorOrName(@RequestParam String nameOrColor) {
+        return ResponseEntity.ok(facultyService.getFacultyColorOrName(nameOrColor));
     }
 }
