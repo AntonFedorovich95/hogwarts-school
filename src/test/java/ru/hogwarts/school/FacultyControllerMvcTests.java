@@ -51,7 +51,7 @@ public class FacultyControllerMvcTests {
         final String name = "Draco Malfoy";
         final String color = "black";
         final long id = 4;
-        Faculty faculty = new Faculty(id,name,color);
+        Faculty faculty = new Faculty();
         JSONObject facultyObject = new JSONObject();
         facultyObject.put("id",id);
         facultyObject.put("name",name);
@@ -60,6 +60,7 @@ public class FacultyControllerMvcTests {
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
         when(facultyRepository.findById(eq(id))).thenReturn(Optional.of(faculty));
         when(facultyRepository.findByColor(eq(color))).thenReturn(List.of(faculty));
+        when(facultyRepository.existsById(eq(id))).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/faculty")
@@ -82,7 +83,7 @@ public class FacultyControllerMvcTests {
                 .andExpect(jsonPath("$.color").value(color));
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/faculty" + id)
+                .get("/faculty/" + id)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
@@ -93,7 +94,7 @@ public class FacultyControllerMvcTests {
                 .get("/faculty/filter/" + color)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$[4].id").value(id))
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.color").value(color));
 

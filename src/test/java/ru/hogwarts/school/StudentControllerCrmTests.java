@@ -79,7 +79,7 @@ class StudentControllerCrmTests {
         studentService.createStudent(student);
         String expected = mapper.writeValueAsString(student);
         ResponseEntity<String> response = restTemplate.postForEntity("/student", student,String.class);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         JSONAssert.assertEquals(expected,response.getBody(),false);
     }
 
@@ -88,6 +88,7 @@ class StudentControllerCrmTests {
         Student student = new Student(3L,"Hermione",23);
         when(studentRepository.save(any())).thenReturn(student);
         HttpEntity<Student> entity = new HttpEntity<>(student);
+        when(studentRepository.existsById(any())).thenReturn(true);
         ResponseEntity<Student> response = this.restTemplate.exchange("/student", HttpMethod.PUT, entity, Student.class);
         assertEquals(response.getStatusCode(),HttpStatus.OK);
     }

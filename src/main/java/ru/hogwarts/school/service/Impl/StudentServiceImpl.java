@@ -28,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student updateStudent(Student student) {
-        if (studentRepository.existsById(student.getId()) != true) {
+        if (!studentRepository.existsById(student.getId())) {
             return null;
         }
         return studentRepository.save(student);
@@ -48,4 +48,5 @@ public class StudentServiceImpl implements StudentService {
     public Collection<Student> getStudentByAgeBetween(Integer minAge, Integer maxAge) {
         return studentRepository.findByAgeBetween(minAge, maxAge);
     }
+
 }
