@@ -75,5 +75,4 @@ public class StudentController {
     public ResponseEntity getLastFiveStudentsList() {
         return ResponseEntity.ok(studentService.getLastFiveStudentsList());
     }
-
 }

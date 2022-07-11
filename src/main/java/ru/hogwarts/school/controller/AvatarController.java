@@ -50,5 +50,4 @@ public class AvatarController {
             is.transferTo(os);
         }
     }
-
 }
