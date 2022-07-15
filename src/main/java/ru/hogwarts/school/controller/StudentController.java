@@ -60,4 +60,19 @@ public class StudentController {
         }
         return ResponseEntity.ok(studentService.getStudentByAgeBetween(minAge, maxAge));
     }
+
+    @GetMapping("/studentsQuantityInfo")
+    public ResponseEntity getStudentsQuantity() {
+        return ResponseEntity.ok(studentService.getStudentsQuantity());
+    }
+
+    @GetMapping("/studentsAverageAgeInfo")
+    public ResponseEntity getStudentsAverageAge() {
+        return ResponseEntity.ok(studentService.getStudentsAverageAge());
+    }
+
+    @GetMapping("/listOfLastFiveStudents")
+    public ResponseEntity getLastFiveStudentsList() {
+        return ResponseEntity.ok(studentService.getLastFiveStudentsList());
+    }
 }

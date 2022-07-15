@@ -18,4 +18,10 @@ public interface StudentService {
     List<Student> getStudentsAge(Integer age);
 
     Collection<Student> getStudentByAgeBetween(Integer minAge, Integer maxAge);
+
+    Integer getStudentsQuantity();
+
+    Long getStudentsAverageAge();
+
+    List<GetLastFiveStudents> getLastFiveStudentsList();
 }
