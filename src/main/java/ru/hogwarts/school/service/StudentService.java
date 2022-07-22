@@ -24,4 +24,8 @@ public interface StudentService {
     Long getStudentsAverageAge();
 
     List<GetLastFiveStudents> getLastFiveStudentsList();
+
+    Collection<String> getStudentsByFirstName(String substring);
+
+    Double getStudentsAverageAgeByStreamMethod();
 }

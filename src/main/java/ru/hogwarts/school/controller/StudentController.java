@@ -53,9 +53,9 @@ public class StudentController {
     }
 
     @GetMapping()
-    public ResponseEntity <Collection<Student>> getStudentByAgeBetween (@RequestParam Integer minAge,
-                                                                       @RequestParam Integer maxAge) {
-        if (minAge > maxAge){
+    public ResponseEntity<Collection<Student>> getStudentByAgeBetween(@RequestParam Integer minAge,
+                                                                      @RequestParam Integer maxAge) {
+        if (minAge > maxAge) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(studentService.getStudentByAgeBetween(minAge, maxAge));
@@ -75,4 +75,14 @@ public class StudentController {
     public ResponseEntity getLastFiveStudentsList() {
         return ResponseEntity.ok(studentService.getLastFiveStudentsList());
     }
-}
+
+    @GetMapping("/filter/byName")
+    public ResponseEntity getStudentListByName(@RequestParam(required = true) String substring) {
+        return ResponseEntity.ok(studentService.getStudentsByFirstName(substring));
+    }
+
+    @GetMapping("/findTheAverageAgeOfStudents")
+    public ResponseEntity getStudentsAverageAgeByStreamMethod() {
+        return ResponseEntity.ok(studentService.getStudentsAverageAgeByStreamMethod());
+    }
+    }
