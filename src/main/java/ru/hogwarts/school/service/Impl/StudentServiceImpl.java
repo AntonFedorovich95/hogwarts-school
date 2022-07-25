@@ -10,6 +10,7 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -77,5 +78,29 @@ public class StudentServiceImpl implements StudentService {
     public List<GetLastFiveStudents> getLastFiveStudentsList() {
         logger.info("This method calls the last five students");
         return studentRepository.getLastFiveStudents();
+    }
+
+    public Collection<String> getStudentsByFirstName(String substring) {
+        logger.info("Еhe method calls students by the beginning of the name ");
+        return studentRepository
+                .findAll()
+                .stream()
+                .parallel()
+                .filter(student -> student.getName().startsWith(substring))
+                .map(student -> student.getName())
+                .map(String::toUpperCase)
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public Double getStudentsAverageAgeByStreamMethod() {
+        logger.info("The method determines the average age of students");
+        return studentRepository
+                .findAll()
+                .stream()
+                .parallel()
+                .mapToInt(student->student.getAge())
+                .average()
+                .getAsDouble();
     }
 }

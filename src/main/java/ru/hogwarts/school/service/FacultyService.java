@@ -17,4 +17,6 @@ public interface FacultyService {
     List<Faculty> getFacultyColor(String color);
 
     Collection<Faculty> getFacultyColorOrName(String nameOrColor);
+
+    Collection<Faculty> getFacultyWithTheMaxNameLength();
 }

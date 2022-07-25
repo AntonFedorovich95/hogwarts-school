@@ -9,6 +9,7 @@ import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -58,5 +59,20 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Faculty> getFacultyColorOrName(String nameOrColor) {
         logger.info ("Search method by color or name");
         return facultyRepository.findByColorAndName(nameOrColor, nameOrColor);
+    }
+
+    public Collection<Faculty> getFacultyWithTheMaxNameLength() {
+        logger.info("The method calls the faculty with the maximum length of the name");
+        int max = facultyRepository
+                .findAll()
+                .stream()
+                .mapToInt(faculty ->faculty.getName().length())
+                .max().getAsInt();
+        return facultyRepository
+                .findAll()
+                .stream()
+                .parallel()
+                .filter(faculty -> faculty.getName().length() == max)
+                .collect(Collectors.toList());
     }
 }
