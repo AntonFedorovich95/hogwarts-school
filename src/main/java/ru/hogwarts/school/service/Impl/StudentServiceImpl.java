@@ -103,4 +103,52 @@ public class StudentServiceImpl implements StudentService {
                 .average()
                 .getAsDouble();
     }
+
+    public void getStudentsThreadMethod() {
+        logger.info("This method calls students by the flow method");
+        List<String> students = getStudentsStreamMethod(studentRepository);
+        int firstPoint = students.size() / 3;
+        int secondPoint = firstPoint * 2;
+        printStudentsNameToConsole(0, firstPoint, students);
+        new Thread(() -> {
+            printStudentsNameToConsole(firstPoint, secondPoint, students);
+        }).start();
+        new Thread(() -> {
+            printStudentsNameToConsole(secondPoint, students.size(), students);
+        }).start();
+    }
+
+    public void getStudentsSynchronizedThreadMethod() {
+        logger.info("Method to get students list by synchronized thread method was invoked");
+        List<String> students = getStudentsStreamMethod(studentRepository);
+        int firstPoint = students.size() / 3;
+        int secondPoint = firstPoint * 2;
+        printStudentsNameToConsoleSynchronizedMethod(0, firstPoint, students);
+        new Thread(() -> {
+            printStudentsNameToConsoleSynchronizedMethod(firstPoint, secondPoint, students);
+        }).start();
+        new Thread(() -> {
+            printStudentsNameToConsoleSynchronizedMethod(secondPoint, students.size(), students);
+        }).start();
+    }
+
+    private List<String> getStudentsStreamMethod(StudentRepository studentRepository) {
+        return studentRepository
+                .findAll()
+                .stream()
+                .map(student -> student.getName())
+                .collect(Collectors.toList());
+    }
+
+    private void printStudentsNameToConsole(Integer startPoint, Integer endPoint, List<String> students) {
+        for (int i = startPoint; i < endPoint; i++) {
+            System.out.println(students.get(i));
+        }
+    }
+
+    private synchronized void printStudentsNameToConsoleSynchronizedMethod(Integer startPoint, Integer endPoint, List<String> students) {
+        for (int i = startPoint; i < endPoint; i++) {
+            System.out.println(students.get(i));
+        }
+    }
 }

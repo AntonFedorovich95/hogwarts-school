@@ -85,4 +85,16 @@ public class StudentController {
     public ResponseEntity getStudentsAverageAgeByStreamMethod() {
         return ResponseEntity.ok(studentService.getStudentsAverageAgeByStreamMethod());
     }
+
+    @GetMapping("/threadMethod")
+    public ResponseEntity getStudentsListByThreadMethod() {
+        studentService.getStudentsThreadMethod();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/SynchronizedThreadMethod")
+    public ResponseEntity getStudentsListBySynchronizedThreadMethod() {
+        studentService.getStudentsSynchronizedThreadMethod();
+        return ResponseEntity.ok().build();
+    }
     }
