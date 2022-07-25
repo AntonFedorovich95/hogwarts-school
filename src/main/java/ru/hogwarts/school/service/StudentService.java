@@ -28,4 +28,8 @@ public interface StudentService {
     Collection<String> getStudentsByFirstName(String substring);
 
     Double getStudentsAverageAgeByStreamMethod();
+
+    void getStudentsThreadMethod();
+
+    void getStudentsSynchronizedThreadMethod();
 }
